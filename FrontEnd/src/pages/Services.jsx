@@ -5,9 +5,9 @@ import LegalLedgerABI from '../utils/LegalLedgerABI';
 import { toast, ToastContainer, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const contractAddress = "0x84966b37b448840c921734589ce16737ba82c30d"; // Add your contract address
-const pinataApiKey = "7a49cda21daa4f797cd2"; // Add your Pinata API key
-const pinataSecretApiKey = "7e7a21397e16f5d0263844573656199b5b111381a10cdde3bc107d2bc8fc4df9"; // Add your Pinata Secret API key
+const contractAddress = ""; // Add your contract address
+const pinataApiKey = ""; // Add your Pinata API key
+const pinataSecretApiKey = ""; // Add your Pinata Secret API key
 
 const Services = () => {
   const [form, setForm] = useState({
@@ -105,7 +105,7 @@ const Services = () => {
       const metadata = JSON.stringify({
         name: form.file.name,
         keyvalues: {
-          patientAddress: form.publicKey, // Ensure this is correct
+          patientAddress: form.publicKey, 
           name: form.name,
           email: form.email,
         },
@@ -122,7 +122,7 @@ const Services = () => {
           },
         });
         const ipfsHash = res.data.IpfsHash;
-        console.log("IPFS Hash:", ipfsHash); // Log the retrieved IPFS hash
+        console.log("IPFS Hash:", ipfsHash); 
         setForm((prevForm) => ({ ...prevForm, IPFShash: ipfsHash }));
         toast.info('File uploaded', {
           position: "top-right",
@@ -135,7 +135,7 @@ const Services = () => {
           theme: "dark",
           transition: Bounce,
         });
-        return ipfsHash; // Return the IPFS hash
+        return ipfsHash; 
       } catch (error) {
         console.error("Error uploading file to Pinata:", error);
       }
@@ -144,7 +144,7 @@ const Services = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const ipfsHash = await handleUpload(); // Wait for handleUpload to complete
+    const ipfsHash = await handleUpload(); 
     if (contract && ipfsHash) {
       try {
         const updatedForm = { ...form, IPFShash: ipfsHash };
@@ -170,7 +170,7 @@ const Services = () => {
     e.preventDefault();
     try {
       const record = await contract.viewRecords(form.publicKey);
-      console.log("Retrieved record:", record); // Log the retrieved record
+      console.log("Retrieved record:", record); 
       setRetriveRecords({
         name: record[0],
         sex: record[1],
