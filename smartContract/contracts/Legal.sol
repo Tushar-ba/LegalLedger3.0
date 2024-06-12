@@ -15,8 +15,8 @@ mapping(address=>bool) private recordExists;
 struct Record{
     string name;
     string sex;
-    uint16 age;
-    uint256 aaddharNumber;
+    string age;
+    string aaddharNumber;
     string phoneNumber;
     string email;
     string Address;
@@ -60,8 +60,8 @@ function createRecord(
     address _publicKey,
     string memory _name,
     string memory _sex,
-    uint16  _age,
-    uint256 _aaddharNumber,
+    string memory  _age,
+    string memory _aaddharNumber,
     string memory _phoneNumber,
     string memory _email,
     string memory _Address,
@@ -88,9 +88,9 @@ function UpdateRecord(
         address _PublicKey,
         string memory _name,
         string memory _sex,
-        uint16 _age,
+        string memory _age,
         string memory _phoneNumber,
-        uint256 _aaddharNumber,
+        string memory _aaddharNumber,
         string memory _email,
         string memory _address,
         string memory _IPFShash
@@ -115,9 +115,9 @@ function UpdateRecord(
     function viewRecords(address _PublicKey) public view returns(
         string memory _name,
         string memory _sex,
-        uint16 _age,
+        string memory _age,
         string memory _phoneNumber,
-        uint256 _aaddharNumber,
+        string memory _aaddharNumber,
         string memory _email,
         string memory _address,
         string memory _IPFShash
@@ -135,5 +135,16 @@ function UpdateRecord(
             record.Address,
             record.IPFShash
         );
+    }
+
+    function deleteRecord(address _publicKey) public  {
+
+                require(modders[msg.sender],"Only Modders can create a record");
+                require(recordExists[_publicKey], "Record  does not  exists");
+
+        delete Records[_publicKey];
+        recordExists[_publicKey] = false;
+
+
     }
 }
